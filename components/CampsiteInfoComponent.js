@@ -68,7 +68,7 @@ function RenderComments({comments}){
                  showRating
                  readonly
                  type= 'star'
-                 startingValue={5}
+                 startingValue={item.rating}
                  imageSize={10}
                  style= {{alignItems: 'flex-start', paddingVertical: '5%'}}
                 />
