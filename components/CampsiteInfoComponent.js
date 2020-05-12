@@ -23,7 +23,7 @@ const mapDispatchToProps= {
 };
 
 function RenderCampsite(props) { 
-      
+    const recognizeComment = ({dx}) => (dx > 200) ? true : false;
     const{campsite} = props;
 
     //Creating a reference for attaching the aniimatable with the PanResponder
@@ -58,9 +58,15 @@ function RenderCampsite(props) {
                         ],
                         { cancelable: false }
                     );
+                  
+                }
+                else if(recognizeComment(gestureState)) {
+                    props.onShowModal();
                 }
                 return true;
+
             }
+
         });
 
         if (campsite) {
@@ -87,7 +93,7 @@ function RenderCampsite(props) {
                                 onPress={() =>props.favorite ? console.log('Already set as a favorite') : props.markFavorite()}
                             />
                             <Icon
-                            syle={styles.cardItem}
+                                syle={styles.cardItem}
                                 name='pencil'
                                 type='font-awesome'
                                 color='#5637DD'
@@ -101,6 +107,7 @@ function RenderCampsite(props) {
             );
         }
         return <View />;
+
     }
 
 function RenderComments({comments}){
@@ -159,7 +166,6 @@ class CampsiteInfo extends Component {
     }
 
     handleComment(campsiteId){
-        console.log("====================", this.state)
         const {rating, author, text} = this.state
         this.props.postComment(campsiteId, rating, author, text)
         this.toggleModal();
@@ -200,7 +206,7 @@ class CampsiteInfo extends Component {
                         <Rating
                         showRating
                         type= 'star'
-                        startingValue={5}
+                        startingValue={this.state.rating}
                         imageSize={40}
                         onFinishRating={(rating)=>this.setState({rating: rating})} 
                         style={{paddingVertical: 10}}

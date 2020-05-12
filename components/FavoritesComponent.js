@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 import Swipeout from 'react-native-swipeout';
-import {deleteFavorite} from '../redux/ActionCreators';
+import { deleteFavorite } from '../redux/ActionCreators';
 import * as Animatable from 'react-native-animatable';
 
 const mapStateToProps = state => {
@@ -15,8 +15,9 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = {deleteFavorite: campsiteId => (deleteFavorite(campsiteId))};
-
+const mapDispatchToProps = {
+    deleteFavorite: campsiteId => (deleteFavorite(campsiteId))
+};
 
 class Favorites extends Component {
 
@@ -27,7 +28,6 @@ class Favorites extends Component {
     render() {
         const { navigate } = this.props.navigation;
         const renderFavoriteItem = ({item}) => {
-
             const rightButton = [
                 {
                     text: 'Delete',
@@ -35,22 +35,21 @@ class Favorites extends Component {
                     onPress: () => {
                         Alert.alert(
                             'Delete Favorite?',
-                            'Are you sure you wish to delete the favorite campsite' + item.name + '?',
+                            'Are you sure you wish to delete the favorite campsite ' + item.name + '?',
                             [
                                 {
                                     text: 'Cancel',
-                                    onPress: ()=> console.log(item.name + 'Not Deleted'),
-                                    style: 'Cancel'
+                                    onPress: () => console.log(item.name + ' Not Deleted'),
+                                    style: 'cancel'
                                 },
                                 {
-                                    text: 'Ok',
-                                    onPress: ()=> this.props.deleteFavorite(item.id)
-
+                                    text: 'OK',
+                                    onPress: () => this.props.deleteFavorite(item.id)
                                 }
                             ],
-                            {cancelable: false}
-                        );
-                     }  
+                            { cancelable: false }
+                        )
+                    }
                 }
             ];
 
